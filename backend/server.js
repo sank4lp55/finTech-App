@@ -4,8 +4,8 @@ const cors = require("cors");
 const morgan = require('morgan')
 const helmet = require('helmet');
 
-// const { initializeApp, cert } = require('firebase-admin/app');
-// const firebaseSADev = require('./src/config/sa/devSA.json')
+const { initializeApp, cert } = require('firebase-admin/app');
+const firebaseSADev = require('./src/config/sa/SA.json')
 // const firebaseSAProd = require('./src/config/sa/prodSA.json')
 
 global.__basedir = __dirname;
@@ -17,11 +17,11 @@ const app = express();
 app.use(helmet());
 app.use(morgan('combined'))
 
-// const serviceAccount = process.env.NODE_ENV == "production" ? firebaseSAProd : firebaseSADev;
+const serviceAccount = process.env.NODE_ENV == "production" ? firebaseSAProd : firebaseSADev;
 
-// initializeApp({
-//     credential: cert(serviceAccount)
-// });
+initializeApp({
+    credential: cert(serviceAccount)
+});
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -41,8 +41,8 @@ app.disable('x-powered-by');
 
 app.use(cors());
 
-// const allRoutes = require('./src/routes/index');
-// app.use("/api/", allRoutes);
+const allRoutes = require('./src/routes/index');
+app.use("/api/", allRoutes);
 
 app.get("/", (req, res) => {
     res.json({ message: "welcome" });
