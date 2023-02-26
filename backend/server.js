@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const helmet = require('helmet');
 
 const { initializeApp, cert } = require('firebase-admin/app');
-const firebaseSADev = require('./src/config/sa/SA.json')
+const firebaseSA = require('./src/config/sa/SA.json')
 // const firebaseSAProd = require('./src/config/sa/prodSA.json')
 
 global.__basedir = __dirname;
@@ -17,7 +17,7 @@ const app = express();
 app.use(helmet());
 app.use(morgan('combined'))
 
-const serviceAccount = process.env.NODE_ENV == "production" ? firebaseSAProd : firebaseSADev;
+const serviceAccount = firebaseSA;
 
 initializeApp({
     credential: cert(serviceAccount)
