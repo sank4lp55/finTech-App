@@ -27,6 +27,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: currentIndex != 3 ? Colors.white : Color(0xff2B3460),
       body: Screen[currentIndex],
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(20),
@@ -80,7 +81,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
                   listOfIcons[index],
                   size: size.width * .076,
                   color: index == currentIndex
-                      ? Color(0xff2B3467)
+                      ? Color(0xff2B3460)
                       : Colors.black38,
                 ),
                 SizedBox(height: size.width * .03),
