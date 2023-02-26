@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/data/model/hive_models/add_date.dart';
 import 'package:frontend/navigation_container.dart';
+import 'package:frontend/views/pages/login_folder/loginpage.dart';
+import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -23,6 +25,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: NavigationContainer());
+        home: LoginPage());
   }
 }
