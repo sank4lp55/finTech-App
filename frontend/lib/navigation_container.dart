@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
 import 'package:frontend/views/pages/homepage.dart';
-import 'package:frontend/views/pages/investment.dart';
-import 'package:frontend/views/pages/profile.dart';
+import 'package:frontend/views/pages/investment_folder/investment.dart';
+import 'package:frontend/views/pages/profile_folder/profile.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
 
 class NavigationContainer extends StatefulWidget {
