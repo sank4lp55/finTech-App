@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frontend/utils/constants.dart';
-import 'package:frontend/views/widgets/profile_list_item.dart';
+import 'package:frontend/views/pages/profile_folder/profile_list_item.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
