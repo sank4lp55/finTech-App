@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -16,6 +19,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    double height = size.height;
+    double width = size.width;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -40,7 +46,7 @@ class LoginPage extends StatelessWidget {
                   'Welcome back you\'ve been missed!',
                   style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 16,
+                    fontSize: width * 0.04,
                   ),
                 ),
 
@@ -82,7 +88,12 @@ class LoginPage extends StatelessWidget {
 
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
+                  h: height * 0.065,
+                  w: width * 0.9,
+                  text: "Sign in",
+                  onTap: () {
+                    Get.to(NavigationContainer());
+                  },
                 ),
 
                 const SizedBox(height: 50),
@@ -142,11 +153,16 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
-                      'Register now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        Get.to(Register());
+                      },
+                      child: Text(
+                        'Register now',
+                        style: TextStyle(
+                          color: dark,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
