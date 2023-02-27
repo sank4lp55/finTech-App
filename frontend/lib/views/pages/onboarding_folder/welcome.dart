@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/views/pages/login_folder/loginpage.dart';
+import 'package:frontend/views/pages/onboarding_folder/details.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:get/get.dart';
@@ -60,7 +61,7 @@ class _WelcomeState extends State<Welcome> {
                   width: double.infinity,
                   child: MyButton(
                     onTap: () {
-                      Get.to(Register());
+                      Get.to(DetailsPage());
                     },
                     h: height * 0.065,
                     w: width * 0.5,
