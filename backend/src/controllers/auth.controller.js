@@ -97,7 +97,6 @@ const signUp = async (req, res, next) => {
             image: req.body.image,
             links: req.body.links,
             user_type: req.body.user_type,
-            createdBy: req.userInfo?.id || null,
         };
         if (FirebaseUserAuth.uid && FirebaseUserAuth.uid.length > 0) {
             const user = await createNewUser(newUser)
