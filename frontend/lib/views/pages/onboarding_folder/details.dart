@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/login_folder/loginpage.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
 import 'package:frontend/views/widgets/my_button.dart';
@@ -8,12 +9,20 @@ import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class DetailsPage extends StatefulWidget {
+  const DetailsPage({super.key});
 
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
   // text editing controllers
-  final usernameController = TextEditingController();
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   // sign user in method
   void signUserIn() {}
@@ -29,9 +38,9 @@ class LoginPage extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
+                //const SizedBox(height: 50),
 
                 // logo
                 const Icon(
@@ -40,7 +49,7 @@ class LoginPage extends StatelessWidget {
                   color: dark,
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // welcome back, you've been missed!
                 Text(
@@ -55,9 +64,16 @@ class LoginPage extends StatelessWidget {
 
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
-                  hintText: 'Username',
+                  controller: nameController,
+                  hintText: 'Name',
                   obscureText: false,
+                ),
+
+                const SizedBox(height: 10),
+                MyTextField(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: true,
                 ),
 
                 const SizedBox(height: 10),
@@ -71,19 +87,34 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
                 ),
+
+                // const SizedBox(height: 10),
+                // MyTextField(
+                //   controller: usernameController,
+                //   hintText: 'Confirm Password',
+                //   obscureText: true,
+                // ),
+
+                const SizedBox(height: 10),
+
+                // forgot password?
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: [
+                //       Text(
+                //         'Forgot Password?',
+                //         style: TextStyle(color: Colors.grey[600]),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 const SizedBox(height: 25),
 
@@ -91,13 +122,13 @@ class LoginPage extends StatelessWidget {
                 MyButton(
                   h: height * 0.065,
                   w: width * 0.9,
-                  text: "Sign in",
+                  text: "Sign up",
                   onTap: () {
-                    Get.to(NavigationContainer());
+                    Get.to(Register());
                   },
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // or continue with
                 Padding(
@@ -127,7 +158,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // google + apple sign in buttons
                 Row(
@@ -143,23 +174,23 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member?',
+                      'Already a member?',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
                     InkWell(
                       onTap: () {
-                        Get.to(Welcome());
+                        Get.to(LoginPage());
                       },
-                      child: Text(
-                        'Register now',
+                      child: const Text(
+                        'Login',
                         style: TextStyle(
                           color: dark,
                           fontWeight: FontWeight.bold,
@@ -167,7 +198,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
