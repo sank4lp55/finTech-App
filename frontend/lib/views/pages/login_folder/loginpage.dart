@@ -1,19 +1,53 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:frontend/interface/backend_interface.dart';
+import 'package:frontend/models/login_request_model.dart';
 import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:http/http.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isApiCallProcess = false;
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  String email = "";
+  String password = "";
+
+  Future<void> login(String email, String password) async {
+    try {
+      Response response = await post(
+          Uri.parse('http://fintech-app.up.railway.app/api/v1/auth/login'),
+          body: {'email': email, 'password': password});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print(data['token']);
+        print('Login successfully');
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   // sign user in method
   void signUserIn() {}
@@ -55,7 +89,7 @@ class LoginPage extends StatelessWidget {
 
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: 'Username',
                   obscureText: false,
                 ),
@@ -93,7 +127,41 @@ class LoginPage extends StatelessWidget {
                   w: width * 0.9,
                   text: "Sign in",
                   onTap: () {
-                    Get.to(NavigationContainer());
+                    // login(emailController.text.toString(),
+                    //     passwordController.text.toString());
+                    if (validateAndSave() == true) {
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+                      LoginRequestModel model = LoginRequestModel(
+                          email: emailController.text,
+                          password: passwordController.text);
+                      BackendInterface.login(model).then((Response) {
+                        setState(() {
+                          isApiCallProcess = false;
+                        });
+
+                        if (true) {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      Homepage()),
+                              (route) => false);
+                        } else {
+                          AlertDialog alert = AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Invalid email or password."),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {},
+                              ),
+                            ],
+                          );
+                        }
+                      });
+                    }
                   },
                 ),
 
@@ -174,5 +242,16 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    email = emailController.text;
+    password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      print("fuck");
+      return false;
+    }
+    return true;
   }
 }
