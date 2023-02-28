@@ -13,7 +13,7 @@ class BackendInterface {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.parse('http://localhost:3000/api/v1/auth/login');
+    var url = Uri.parse('https://fintech-app.up.railway.app/api/v1/auth/login');
 
     var response = await client.post(
       url,
@@ -22,7 +22,7 @@ class BackendInterface {
     );
     http.Response loginResponseModel = response;
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       //SHARED
       await SharedService.setLoginDetails(loginResponseJson(response.body));
 

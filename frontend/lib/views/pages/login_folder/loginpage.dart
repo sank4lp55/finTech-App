@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                               context,
                               MaterialPageRoute<void>(
                                   builder: (BuildContext context) =>
-                                      Homepage()),
+                                      Navigator()),
                               (route) => false);
                         } else {
                           AlertDialog alert = AlertDialog(
