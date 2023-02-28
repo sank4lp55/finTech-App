@@ -34,7 +34,7 @@ const db = require("./src/models")
 app.use(express.json());
 
 // For Creating New Table if not there
-db.sequelize.sync();
+// db.sequelize.sync();
 
 // * disabling x-powered-by shown in response of browser
 app.disable('x-powered-by');
