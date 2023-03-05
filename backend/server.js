@@ -33,8 +33,6 @@ const sequelize = require("sequelize")
 const db = require("./src/models")
 app.use(express.json());
 
-// For Creating New Table if not there
-// db.sequelize.sync();
 
 // * disabling x-powered-by shown in response of browser
 app.disable('x-powered-by');
@@ -42,7 +40,7 @@ app.disable('x-powered-by');
 app.use(cors());
 
 const allRoutes = require('./src/routes/index');
-app.use("/api/", allRoutes);
+app.use("/api", allRoutes);
 
 app.get("/", (req, res) => {
     res.json({ message: "welcome" });

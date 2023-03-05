@@ -10,15 +10,16 @@ const {
     removeUserDataByID,
     updateUserDataByID,
     getUserDataByUID,
-    search
+    search, sendUserData
 } = require('../../controllers/users.controllers')
 
 // Importing Users Route
 // Base URL: /api/v1/users/
 router.get("/", AuthCheck, getAllUsersData);
 router.get("/search", AuthCheck, search);
-router.get("/:id", AuthCheck, getUserDataByID);
+// router.get("/:id", AuthCheck, getUserDataByID);
 router.get("/uid/:uid", AuthCheck, getUserDataByUID);
+router.get("/me", AuthCheck, sendUserData)
 router.put("/:id", AuthCheck, updateUserDataByID);
 router.delete("/:id", saAuthCheck, removeUserDataByID);
 
