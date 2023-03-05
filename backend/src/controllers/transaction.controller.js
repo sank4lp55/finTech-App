@@ -82,11 +82,14 @@ const getTransactionByID = async (req, res, next) => {
     */
 const save = async (req, res, next) => {
     let transaction = req.body;
-    transaction.transaction_sender = req.userInfo.id
+    if (transaction.type == "send") {
+        transaction.transaction_sender = req.userInfo.id
+    } else if (transaction.type == "recieve") {
+        transaction.transaction_receiver = req.userInfo.id
+    }
     try {
         console.log("transaction add")
         const resp = await addTransaction(transaction)
-        console.log(resp, "resp")
         return res.status(200).json({
             success: true,
             data: resp
