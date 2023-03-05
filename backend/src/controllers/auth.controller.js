@@ -53,7 +53,10 @@ const login = async (req, res, next) => {
 
         return res.status(200).send({
             success: true,
-            user: userInfo,
+            user: {
+                uid: userInfo.uid,
+                email: userInfo.email
+            },
             token: 'Bearer ' + token
         })
     } catch (error) {
