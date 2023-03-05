@@ -10,6 +10,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
+        refNo: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            unique: true,
+            validate: {
+                notNull: {
+                    msg: 'Reference Number is required'
+                }
+            }
+        },
         status: {
             type: DataTypes.STRING(100),
             allowNull: false,
