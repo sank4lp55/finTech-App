@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/backend_interface.dart';
 import 'package:frontend/models/login_request_model.dart';
+import 'package:frontend/models/login_response_model.dart';
 import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
 import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
+import 'package:frontend/views/widgets/loading.dart';
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';
@@ -31,26 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   String email = "";
   String password = "";
 
-  Future<void> login(String email, String password) async {
-    try {
-      Response response = await post(
-          Uri.parse('http://fintech-app.up.railway.app/api/v1/auth/login'),
-          body: {'email': email, 'password': password});
-
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body.toString());
-        print(data['token']);
-        print('Login successfully');
-      } else {
-        print('failed');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  final storage = new FlutterSecureStorage();
 
   // sign user in method
-  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -133,21 +119,37 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         isApiCallProcess = true;
                       });
+                      // if (isApiCallProcess == true) {
+                      //   return const Center(child: Loading());
+                      // }
+
                       LoginRequestModel model = LoginRequestModel(
                           email: emailController.text,
                           password: passwordController.text);
-                      BackendInterface.login(model).then((Response) {
+                      BackendInterface.login(model).then((Response) async {
                         setState(() {
                           isApiCallProcess = false;
                         });
+                        //                  if (isApiCallProcess == true) {
+                        //   return const Center(child: Loading());
+                        // }
 
-                        if (true) {
+                        if (Response.success == true) {
+                          await storage.write(
+                              key: "token", value: Response.token);
+                          await storage.write(
+                              key: "uid", value: Response.user!.uid);
                           Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      Navigator()),
+                              MaterialPageRoute(
+                                  builder: (context) => NavigationContainer()),
                               (route) => false);
+                          // Navigator.pushAndRemoveUntil(
+                          //     context,
+                          //     MaterialPageRoute<void>(
+                          //         builder: (BuildContext context) =>
+                          //             Navigator()),
+                          //     (route) => false);
                         } else {
                           AlertDialog alert = AlertDialog(
                             title: Text("Error"),

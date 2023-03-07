@@ -1,14 +1,18 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/shared_service.dart';
 import 'package:frontend/models/login_request_model.dart';
 import 'package:frontend/models/login_response_model.dart';
+import 'package:frontend/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class BackendInterface {
   static var client = http.Client();
+  final storage = FlutterSecureStorage();
 
-  static Future<bool> login(LoginRequestModel model) async {
+  static Future<LoginResponseModel> login(LoginRequestModel model) async {
+    // await Future.delayed(const Duration(seconds: 3));
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -28,9 +32,39 @@ class BackendInterface {
 
 //return loginResponseModel;
 //return loginResponseModel;
-      return true;
+      return loginResponseJson(response.body);
     } else {
-      return false;
+      return loginResponseJson(response.body);
+      ;
+    }
+  }
+
+  static Future<UserModel> getUser(String uid, String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    // String? uid = await storage.read(key: "uid");
+    // String? token = await storage.read(key: "token");
+    var url = Uri.parse(
+        'https://fintech-app.up.railway.app/api/v1/users/me'); // uid will be removed
+
+    final response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': '$token',
+    });
+    http.Response userModel = response;
+
+    if (response.statusCode == 200) {
+      //SHARED
+      await SharedService.userDetails(userJson(response.body));
+
+//return loginResponseModel;
+//return loginResponseModel;
+      return userJson(response.body);
+    } else {
+      return throw Exception("Unable to fetch data .");
     }
   }
 

@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:frontend/models/login_response_model.dart';
+import 'package:frontend/models/user_model.dart';
+import 'package:frontend/views/pages/login_folder/loginpage.dart';
 
 class SharedService {
   static Future<bool> isLoggedIn() async {
@@ -35,6 +38,18 @@ class SharedService {
 
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache("login_details");
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<void>(builder: (BuildContext context) => LoginPage()),
+        (route) => false);
+  }
+
+  static Future<void> userDetails(
+    UserModel model,
+  ) async {
+    APICacheDBModel cacheDBModel = APICacheDBModel(
+        key: "user_details", syncData: jsonEncode(model.toJson()));
+
+    await APICacheManager().addCacheData(cacheDBModel);
   }
 }
