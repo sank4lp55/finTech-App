@@ -1,22 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend/interface/backend_interface.dart';
+import 'package:frontend/models/login_request_model.dart';
+import 'package:frontend/models/login_response_model.dart';
 import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
+
+import 'package:frontend/views/widgets/loading.dart';
+
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:http/http.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isApiCallProcess = false;
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
+  String email = "";
+  String password = "";
+
+  final storage = new FlutterSecureStorage();
+
   // sign user in method
-  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +77,7 @@ class LoginPage extends StatelessWidget {
 
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: 'Username',
                   obscureText: false,
                 ),
@@ -93,7 +115,57 @@ class LoginPage extends StatelessWidget {
                   w: width * 0.9,
                   text: "Sign in",
                   onTap: () {
-                    Get.to(NavigationContainer());
+                    // login(emailController.text.toString(),
+                    //     passwordController.text.toString());
+                    if (validateAndSave() == true) {
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+                      // if (isApiCallProcess == true) {
+                      //   return const Center(child: Loading());
+                      // }
+
+                      LoginRequestModel model = LoginRequestModel(
+                          email: emailController.text,
+                          password: passwordController.text);
+                      BackendInterface.login(model).then((Response) async {
+                        setState(() {
+                          isApiCallProcess = false;
+                        });
+                        //                  if (isApiCallProcess == true) {
+                        //   return const Center(child: Loading());
+                        // }
+
+                        if (Response.success == true) {
+                          await storage.write(
+                              key: "token", value: Response.token);
+                          await storage.write(
+                              key: "uid", value: Response.user!.uid);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NavigationContainer()),
+                              (route) => false);
+                          // Navigator.pushAndRemoveUntil(
+                          //     context,
+                          //     MaterialPageRoute<void>(
+                          //         builder: (BuildContext context) =>
+                          //             Navigator()),
+                          //     (route) => false);
+                        } else {
+                          AlertDialog alert = AlertDialog(
+                            title: Text("Error"),
+                            content: Text("Invalid email or password."),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {},
+                              ),
+                            ],
+                          );
+                        }
+                      });
+                    }
                   },
                 ),
 
@@ -174,5 +246,16 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    email = emailController.text;
+    password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      print("fuck");
+      return false;
+    }
+    return true;
   }
 }
