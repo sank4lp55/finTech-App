@@ -6,7 +6,6 @@ import 'package:frontend/views/pages/details_screen.dart';
 import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
 import 'package:frontend/views/pages/explore_folder/explore.dart';
 import 'package:frontend/views/pages/homepage.dart';
-import 'package:frontend/views/pages/investment_folder/investment.dart';
 import 'package:frontend/views/pages/onboarding_folder/age.dart';
 import 'package:frontend/views/pages/onboarding_folder/details.dart';
 
@@ -25,17 +24,15 @@ class _NavigationContainerState extends State<NavigationContainer> {
 
   //
 
-
-  List Screen = [Homepage(), ExpenseManager(), Explore(), Profile()];
-
+  List Screen = [HomePage(), ExpenseManager(), Explore(), Profile()];
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
-      backgroundColor: (currentIndex ==0||currentIndex== 1) ? Colors.white : Color(0xff2B3460),
-
+      backgroundColor: (currentIndex == 0 || currentIndex == 1)
+          ? Colors.white
+          : Color(0xff2B3460),
       body: Screen[currentIndex],
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(18),
