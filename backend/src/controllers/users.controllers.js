@@ -46,30 +46,30 @@ const getAllUsersData = async (req, res, next) => {
  * @access Private
  * @returns JSON
 */
-const getUserDataByID = async (req, res, next) => {
-    let id = req.params.id;
-    try {
-        const resp = await getUserInfoByID(id)
+// const getUserDataByID = async (req, res, next) => {
+//     let id = req.params.id;
+//     try {
+//         const resp = await getUserInfoByID(id)
 
-        if (resp) {
-            return res.status(200).json({
-                success: true,
-                data: resp
-            })
-        } else {
-            return res.status(200).json({
-                success: false,
-                data: "User Not Found"
-            })
-        }
+//         if (resp) {
+//             return res.status(200).json({
+//                 success: true,
+//                 data: resp
+//             })
+//         } else {
+//             return res.status(200).json({
+//                 success: false,
+//                 data: "User Not Found"
+//             })
+//         }
 
-    } catch (error) {
-        return res.status(404).send({
-            success: false,
-            message: error
-        });
-    }
-}
+//     } catch (error) {
+//         return res.status(404).send({
+//             success: false,
+//             message: error
+//         });
+//     }
+// }
 
 
 /**
@@ -189,6 +189,20 @@ const getUserDataByUID = async (req, res, next) => {
 }
 
 
+const sendUserData = (req, res, next) => {
+    if (req.userInfo && req.userInfo.uid) {
+        return res.status(200).json({
+            success: true,
+            data: req.userInfo
+        })
+    } else {
+        return res.status(200).json({
+            success: false,
+            data: "User Not Found"
+        })
+    }
+}
+
 
 /**
  * @description Delete User info by ID
@@ -243,9 +257,10 @@ const removeUserDataByID = async (req, res, next) => {
 
 module.exports = {
     getAllUsersData,
-    getUserDataByID,
+    // getUserDataByID,
     removeUserDataByID,
     updateUserDataByID,
     getUserDataByUID,
-    search
+    search,
+    sendUserData
 }

@@ -4,10 +4,12 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:frontend/views/pages/details_screen.dart';
 import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
+import 'package:frontend/views/pages/explore_folder/explore.dart';
 import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/investment_folder/investment.dart';
 import 'package:frontend/views/pages/onboarding_folder/age.dart';
 import 'package:frontend/views/pages/onboarding_folder/details.dart';
+
 import 'package:frontend/views/pages/profile_folder/profile.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
 
@@ -23,15 +25,17 @@ class _NavigationContainerState extends State<NavigationContainer> {
 
   //
 
-  List Screen = [HomePage(), ExpenseManager(), Investment(), Profile()];
-  //
+
+  List Screen = [Homepage(), ExpenseManager(), Explore(), Profile()];
+
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor:
-          currentIndex != 3 ? Colors.grey.shade300 : Color(0xff2B3460),
+
+      backgroundColor: (currentIndex ==0||currentIndex== 1) ? Colors.white : Color(0xff2B3460),
+
       body: Screen[currentIndex],
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(18),

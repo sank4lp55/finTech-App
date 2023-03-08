@@ -10,7 +10,9 @@ import 'package:frontend/utils/constants.dart';
 import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/onboarding_folder/register.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
+
 import 'package:frontend/views/widgets/loading.dart';
+
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:frontend/views/widgets/my_textfield.dart';
 import 'package:frontend/views/widgets/square_tile.dart';

@@ -20,16 +20,16 @@ const validateUser = async (req, res, next) => {
         auth.getUser(decodedToken.uid).then(async userRecord => {
             req.firebaseAuthUID = userRecord.uid
             // Check Role
-            try{
+            try {
                 // Check User in the User Table by UID
                 const uData = await getUserInfoByUID(userRecord.uid)
-                
+
                 // Check if user is found or Not
-                if(uData===null || uData.length===0){
+                if (uData === null || uData.length === 0) {
                     return res.status(403).json({
                         error: "Unauthorized User"
                     })
-                }else{
+                } else {
                     // Adding New Propert UserInfo in the req Obj 
                     // We can use this UserInfo Object from any Controller 
                     console.log("User Authenticated".yellow);
@@ -37,12 +37,12 @@ const validateUser = async (req, res, next) => {
                     next()
                 }
             }
-            catch(e){
+            catch (e) {
                 return res.status(403).json({
                     error: "Unauthorized User"
                 })
             }
-            
+
         }).catch(e => {
             return res.status(403).json({
                 error: "Unauthorized User"
