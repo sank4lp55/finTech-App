@@ -25,7 +25,7 @@ const getAllTransactionsData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Found"
         });
     }
 
@@ -65,7 +65,7 @@ const getTransactionByID = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Found"
         });
     }
 }
@@ -97,7 +97,7 @@ const save = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Added"
         });
     }
 }
@@ -123,7 +123,7 @@ const updateTransactionData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Updated"
         });
     }
 }
@@ -148,7 +148,7 @@ const deleteTransactionData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Deleted"
         });
     }
 }
