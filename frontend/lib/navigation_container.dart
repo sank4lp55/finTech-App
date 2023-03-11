@@ -24,7 +24,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
 
   //
 
-  List Screen = [HomePage(), ExpenseManager(), Explore(), Profile()];
+  List Screen = [Homepage(), ExpenseManager(), Explore(), Profile()];
 
   @override
   Widget build(BuildContext context) {
