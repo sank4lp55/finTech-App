@@ -54,6 +54,7 @@ const login = async (req, res, next) => {
         return res.status(200).send({
             success: true,
             user: {
+                id: userInfo.id,
                 uid: userInfo.uid,
                 email: userInfo.email
             },
