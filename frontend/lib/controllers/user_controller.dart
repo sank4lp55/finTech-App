@@ -1,12 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/backend_interface.dart';
+import 'package:frontend/models/transaction_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
   var id = 0.obs;
   var uid = "".obs;
-  var fullname = "sankalpppp".obs;
+  var fullname = "".obs;
   var email = "".obs;
   var mobile = "".obs;
   var country = "".obs;
@@ -28,17 +29,15 @@ class UserController extends GetxController {
   var facebook = "".obs;
   var website = "".obs;
 
-  var isLoading = true.obs;
+  var isLoading = false.obs;
 
   final storage = FlutterSecureStorage();
 
-  // @override
-  // Future<void> initState() async {
-  //   String? principle = await storage.read(key: "uid");
-  //   String? token = await storage.read(key: "token");
-  //   getUserData(principle!, token!);
-  //   super.onInit();
-  // }
+  @override
+  void onInit() async {
+    super.onInit();
+    getUserData();
+  }
 
   // }
 
@@ -60,6 +59,8 @@ class UserController extends GetxController {
       String? principle = await storage.read(key: "uid");
       String? token = await storage.read(key: "token");
       UserModel userModel = await BackendInterface.getUser(principle!, token!);
+      //TransactionModel transactionModel =
+      //   await BackendInterface.getTransaction(principle!, token!);
 
       id.value = userModel.data!.id!.toInt();
       uid.value = userModel.data!.uid!.toString();

@@ -47,6 +47,9 @@ dependencies:
   http: ^0.13.5
   flutter_secure_storage: ^8.0.0
   flutter_svg: ^1.1.6
+  telephony: ^0.2.0
+  vibration: ^1.7.6
+  json_annotation: ^4.8.0
 
 dev_dependencies:
   flutter_test:

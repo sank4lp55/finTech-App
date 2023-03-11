@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend/controllers/transaction_controller.dart';
+import 'package:frontend/models/transaction_data_model.dart';
 import 'package:frontend/views/pages/expense_folder/add.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
+import 'package:frontend/views/widgets/loading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
@@ -8,6 +12,13 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:frontend/data/listdata.dart';
 import 'package:frontend/data/model/hive_models/add_date.dart';
 import 'package:frontend/data/utlity.dart';
+import 'package:telephony/telephony.dart';
+import 'package:vibration/vibration.dart';
+
+onBackgroundMessage(SmsMessage message) {
+  debugPrint("onBackgroundMessage called");
+  Vibration.vibrate(duration: 500);
+}
 
 class ExpenseManager extends StatefulWidget {
   const ExpenseManager({Key? key}) : super(key: key);
@@ -17,7 +28,16 @@ class ExpenseManager extends StatefulWidget {
 }
 
 class _ExpenseManagerState extends State<ExpenseManager> {
+  final Telephony telephony = Telephony.instance;
+  String _message = "";
+
+  bool isFirst = true;
+  final storage = new FlutterSecureStorage();
+
+  var _transactionController = Get.put(TransactionController());
+
   var history;
+  late Data data;
   final box = Hive.box<Add_data>('data');
   final List<String> day = [
     'Monday',
@@ -28,10 +48,43 @@ class _ExpenseManagerState extends State<ExpenseManager> {
     'saturday',
     'sunday'
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  onMessage(SmsMessage message) async {
+    setState(() {
+      _message = message.body ?? "Error reading message body.";
+      print(_message);
+    });
+  }
+
+  Future<void> initPlatformState() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+
+    final bool? result = await telephony.requestPhoneAndSmsPermissions;
+
+    if (result != null && result) {
+      telephony.listenIncomingSms(
+          onNewMessage: onMessage, onBackgroundMessage: onBackgroundMessage);
+    }
+
+    if (!mounted) return;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return Scaffold(body: Obx(() {
+      if (_transactionController.isLoading == true) {
+        return const Center(child: Loading());
+      }
+      return SafeArea(
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
@@ -69,52 +122,55 @@ class _ExpenseManagerState extends State<ExpenseManager> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          history = box.values.toList()[index];
+                          //history = box.values.toList()[index];
+                          history = _transactionController.model!.data![index];
                           return getList(history, index);
                         },
-                        childCount: box.length,
+                        childCount: _transactionController.model != null
+                            ? _transactionController.model?.data?.length
+                            : 0,
                       ),
                     )
                   ],
                 );
-              })),
-    );
+              }));
+    }));
   }
 
-  Widget getList(Add_data history, int index) {
+  Widget getList(Data history, int index) {
     return Dismissible(
         key: UniqueKey(),
         onDismissed: (direction) {
-          history.delete();
+          //history.delete();
         },
         child: get(index, history));
   }
 
-  ListTile get(int index, Add_data history) {
+  ListTile get(int index, Data history) {
     return ListTile(
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(5),
-        child: Image.asset('images/${history.name}.png', height: 40),
+        //child: Image.asset('images/${history.category}.png', height: 40),
       ),
       title: Text(
-        history.name,
+        '${history.category} ',
         style: TextStyle(
           fontSize: 17,
           fontWeight: FontWeight.w600,
         ),
       ),
       subtitle: Text(
-        '${day[history.datetime.weekday - 1]}  ${history.datetime.year}-${history.datetime.day}-${history.datetime.month}',
+        '${history.date} ',
         style: TextStyle(
           fontWeight: FontWeight.w600,
         ),
       ),
       trailing: Text(
-        history.amount,
+        '${history.amount} ',
         style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 19,
-          color: history.IN == 'Income' ? Colors.green : Colors.red,
+          color: history.type == 'recieve' ? Colors.green : Colors.red,
         ),
       ),
     );
