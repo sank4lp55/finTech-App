@@ -7,7 +7,7 @@ import 'package:frontend/views/pages/login_folder/loginpage.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -23,12 +23,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void checkLogin() async {
     String? token = await storage.read(key: "token");
-    await Future.delayed(Duration(milliseconds: 1500), () {});
+    await Future.delayed(const Duration(milliseconds: 1500), () {});
 
     if (token != null) {
-      Get.to(NavigationContainer());
+      Get.off(NavigationContainer());
     } else {
-      Get.to(LoginPage());
+      Get.off(LoginPage());
     }
   }
 
