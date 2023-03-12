@@ -28,7 +28,6 @@ class _MyAppState extends State<MyApp> {
   Widget page = LoginPage();
   final storage = FlutterSecureStorage();
 
-  // This widget is the root of your application.
   @override
   void initState() {
     super.initState();
