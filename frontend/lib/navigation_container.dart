@@ -11,6 +11,7 @@ import 'package:frontend/views/pages/onboarding_folder/details.dart';
 
 import 'package:frontend/views/pages/profile_folder/profile.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
+import 'package:frontend/views/pages/splash_screen.dart';
 import 'package:get/get.dart';
 
 class NavigationContainer extends StatefulWidget {

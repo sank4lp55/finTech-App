@@ -130,28 +130,4 @@ class BackendInterface {
       ;
     }
   }
-
-  // Future<LoginResponseModel> login(LoginRequestModel model) async {
-  //   try {
-  //     Map<String, String> requestHeaders = {
-  //       'Content-Type': 'application/json',
-  //     };
-
-  //     var url =
-  //         Uri.parse('http://fintech-app.up.railway.app/api/v1/auth/login');
-
-  //     var response = await client.post(
-  //       url,
-  //       headers: requestHeaders,
-  //       body: jsonEncode(model.toJson()),
-  //     );
-  //     if (response != null) {
-  //       //var result = Result.fromJson(res);
-  //       //return (LoginResponseModel.fromJson());
-  //     }
-  //     throw "Cannot get Signup availability but $response";
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
 }

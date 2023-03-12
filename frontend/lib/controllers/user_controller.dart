@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/backend_interface.dart';
+import 'package:frontend/models/links_model.dart';
 import 'package:frontend/models/transaction_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class UserController extends GetxController {
   var streetAddress = "".obs;
   var bio = "".obs;
   var image = "".obs;
-  var links = [];
+  Links? links;
   var accountStatus = 0.obs;
   var userType = 0.obs;
   var createdAt = "".obs;
@@ -39,28 +40,12 @@ class UserController extends GetxController {
     getUserData();
   }
 
-  // }
-
-  // final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
-  // Map<String, dynamic> get user => _user.value;
-
-  // Rx<String> _uid = "".obs;
-
-  // updateUserId(String uid) {
-  //   _uid.value = uid;
-  //   getUserData();
-  // }
-  // String principal =
-  //     "zxg6n-qanyj-g6fvl-5ysfr-pdpi4-p6pk5-mf3uy-dkq27-y3upv-o6ov6-dae";
-
   Future<void> getUserData() async {
     try {
       isLoading(true);
       String? principle = await storage.read(key: "uid");
       String? token = await storage.read(key: "token");
       UserModel userModel = await BackendInterface.getUser(principle!, token!);
-      //TransactionModel transactionModel =
-      //   await BackendInterface.getTransaction(principle!, token!);
 
       id.value = userModel.data!.id!.toInt();
       uid.value = userModel.data!.uid!.toString();
@@ -74,7 +59,7 @@ class UserController extends GetxController {
       streetAddress.value = userModel.data!.streetAddress!.toString();
       bio.value = userModel.data!.bio!.toString();
       image.value = userModel.data!.image!.toString();
-      links = userModel.data!.links as List;
+      links = userModel.data!.links;
       accountStatus.value = userModel.data!.accountStatus!.toInt();
       userType.value = userModel.data!.userType!.toInt();
       createdAt.value = userModel.data!.createdAt!.toString();

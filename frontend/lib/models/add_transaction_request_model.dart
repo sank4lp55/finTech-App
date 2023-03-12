@@ -5,6 +5,7 @@ class AddTransactionRequestModel {
   String? status;
   String? description;
   String? category;
+  String? token;
   int? transactionSender;
 
   AddTransactionRequestModel(
@@ -14,6 +15,7 @@ class AddTransactionRequestModel {
       this.status,
       this.description,
       this.category,
+      this.token,
       this.transactionSender});
 
   AddTransactionRequestModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class AddTransactionRequestModel {
     status = json['status'];
     description = json['description'];
     category = json['category'];
+    token = json['token'];
     transactionSender = json['transaction_sender'];
   }
 
@@ -34,6 +37,7 @@ class AddTransactionRequestModel {
     data['status'] = this.status;
     data['description'] = this.description;
     data['category'] = this.category;
+    data['token'] = this.token;
     data['transaction_sender'] = this.transactionSender;
     return data;
   }
