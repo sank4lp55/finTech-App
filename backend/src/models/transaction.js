@@ -37,14 +37,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        transaction_sender: {
-            type: DataTypes.SMALLINT,
-            allowNull: false,
-        },
-        transaction_receiver: {
-            type: DataTypes.SMALLINT,
-            allowNull: false,
-        },
+        // transaction_sender: {
+        //     type: DataTypes.SMALLINT,
+        //     allowNull: false,
+        // },
+        // transaction_receiver: {
+        //     type: DataTypes.SMALLINT,
+        //     allowNull: false,
+        // },
 
     }, {});
     transaction.associate = function (models) {
