@@ -10,7 +10,7 @@ const firebaseSA = require('./src/config/sa/SA.json')
 
 global.__basedir = __dirname;
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
