@@ -82,6 +82,7 @@ const getTransactionByID = async (req, res, next) => {
     */
 const save = async (req, res, next) => {
     let transaction = req.body;
+    console.log(transaction)
     // if (transaction.type == "send") {
     //     transaction.transaction_sender = req.userInfo.id
     // } else if (transaction.type == "recieve") {
