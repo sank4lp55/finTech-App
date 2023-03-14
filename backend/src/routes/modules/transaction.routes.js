@@ -3,7 +3,7 @@ const router = express.Router();
 
 const AuthCheck = require('../../middlewares/Auth')
 
-const { getAllTransactionsData, getTransactionByID, save, updateTransactionData, deleteTransactionData } = require('../../controllers/transaction.controller.js')
+const { getAllTransactionsData, getTransactionByID, save, updateTransactionData, deleteTransactionData, getTotalSpend } = require('../../controllers/transaction.controller.js')
 
 router.get("/", AuthCheck, getAllTransactionsData);
 router.get("/:id", AuthCheck, getTransactionByID);

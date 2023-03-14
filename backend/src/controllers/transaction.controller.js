@@ -3,7 +3,8 @@ const {
     getAllTransactions,
     getTransactionInfoByID,
     updateTransaction,
-    deleteTransaction
+    deleteTransaction,
+    total_spent
 } = require('../services/transaction.service');
 
 /**
@@ -17,12 +18,14 @@ const {
     */
 const getAllTransactionsData = async (req, res, next) => {
     try {
-        const resp = await getAllTransactions()
+        let user_id = req.userInfo.id
+        const resp = await getAllTransactions(user_id)
         return res.status(200).json({
             success: true,
             data: resp
         })
     } catch (error) {
+        console.log(error)
         return res.status(404).send({
             success: false,
             message: "Transaction Not Found"
@@ -45,22 +48,16 @@ const getTransactionByID = async (req, res, next) => {
     let current_user_id = req.userInfo.id
     try {
         const resp = await getTransactionInfoByID(id)
-
-        if (resp.type == "send" && resp.transaction_sender == current_user_id) {
-            return res.status(200).json({
-                success: true,
-                data: resp
-            })
-        } else if (resp.type == "recieve" && resp.transaction_receiver == current_user_id) {
+        if (resp.user_id == current_user_id) {
             return res.status(200).json({
                 success: true,
                 data: resp
             })
         } else {
-            return res.status(200).json({
+            return res.status(404).send({
                 success: false,
-                data: "Transaction Not Found"
-            })
+                message: "Transaction Not Found"
+            });
         }
     } catch (error) {
         return res.status(404).send({
@@ -82,6 +79,8 @@ const getTransactionByID = async (req, res, next) => {
     */
 const save = async (req, res, next) => {
     let transaction = req.body;
+    transaction.user_id = req.userInfo.id
+    console.log(transaction)
     // if (transaction.type == "send") {
     //     transaction.transaction_sender = req.userInfo.id
     // } else if (transaction.type == "recieve") {
@@ -153,10 +152,29 @@ const deleteTransactionData = async (req, res, next) => {
     }
 }
 
+const getTotalSpend = async (req, res, next) => {
+    let user_id = req.userInfo.id
+    try {
+        const resp = await total_spent(user_id)
+        // console.log(resp)
+        return res.status(200).json({
+            success: true,
+            data: resp
+        })
+    } catch (error) {
+        // console.log(error)
+        return res.status(404).send({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
+}
+
 module.exports = {
     getAllTransactionsData,
     getTransactionByID,
     save,
     updateTransactionData,
-    deleteTransactionData
+    deleteTransactionData,
+    getTotalSpend
 }

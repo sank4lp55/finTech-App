@@ -1,5 +1,5 @@
 const { transaction, Sequelize } = require('../models');
-
+const { user } = require('../models');
 const Op = Sequelize.Op;
 
 /**
@@ -12,6 +12,10 @@ const getTransactionInfoByID = async (id) => {
         where: {
             'id': id
         },
+        include: [{
+            model: user,
+            as: 'user'
+        }]
     })
     return res
 };
@@ -20,13 +24,15 @@ const getTransactionInfoByID = async (id) => {
  * @description Get All Transactions from Database Service
  * @returns {Object} Transaction Object
 */
-const getAllTransactions = async () => {
+const getAllTransactions = async (user_id) => {
     let res = await transaction.findAll({
         where: {
-            'id': {
-                [Op.gt]: 0
-            }
+            'user_id': user_id
         },
+        include: [{
+            model: user,
+            as: 'user'
+        }]
     })
     return res
 }
@@ -70,11 +76,26 @@ const updateTransaction = async (id, transaction) => {
     return res
 }
 
+const total_spent = async (user_id) => {
+    let res = await transaction.findAll({
+        where: {
+            'user_id': user_id
+        }
+    })
+
+    let total = 0
+    for (let i = 0; i < res.length; i++) {
+        total += Number(res[i].amount)
+    }
+    return total
+}
+
 
 module.exports = {
     getTransactionInfoByID,
     getAllTransactions,
     addTransaction,
     deleteTransaction,
-    updateTransaction
+    updateTransaction,
+    total_spent
 }
