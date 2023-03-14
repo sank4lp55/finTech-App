@@ -88,7 +88,7 @@ const save = async (req, res, next) => {
     //     transaction.transaction_receiver = req.userInfo.id
     // }
     try {
-        console.log("transaction add")
+        console.log("----------adding transaction----------")
         const resp = await addTransaction(transaction)
         return res.status(200).json({
             success: true,
