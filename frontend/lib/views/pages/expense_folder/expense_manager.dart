@@ -231,6 +231,7 @@ class _ExpenseManagerState extends State<ExpenseManager> {
                           ),
                           color: Colors.white,
                           onPressed: () {
+                            Get.deleteAll();
                             Get.to(Add_Screen());
                           },
                         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/add_transaction_controller.dart';
 import 'package:frontend/data/model/hive_models/add_date.dart';
+import 'package:frontend/navigation_container.dart';
+import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -101,11 +103,19 @@ class _Add_ScreenState extends State<Add_Screen> {
         Get.delete();
         AddTransactionController _addTransactionController = Get.put(
             AddTransactionController(selctedItemi!, refNo_c.text, amount_c.text,
-                "complete", " ", description_C.text, selctedItem!));
+                "complete", "01/04/2022", description_C.text, selctedItem!));
         // var add = Add_data(selctedItemi!, amount_c.text, date,
         //     description_C.text, selctedItem!);
         // box.add(add);
-        Navigator.of(context).pop();
+        Get.snackbar("Succes", "Transaction added :)",
+            icon: const Icon(Icons.check_box),
+            barBlur: 20,
+            isDismissible: true,
+            duration: const Duration(seconds: 5),
+            colorText: Colors.white);
+        Get.delete();
+        Get.offAll(NavigationContainer());
+        //Navigator.of(context).pop();
       },
       child: Container(
         alignment: Alignment.center,
@@ -371,7 +381,9 @@ class _Add_ScreenState extends State<Add_Screen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        // Get.delete();
+                        // Get.offAll(ExpenseManager());
+                        //Navigator.of(context).pop();
                       },
                       child: Icon(Icons.arrow_back, color: Colors.white),
                     ),
