@@ -4,7 +4,9 @@ import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/models/add_transaction_response_model.dart';
 import 'package:frontend/models/login_response_model.dart';
+import 'package:frontend/models/transaction_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/views/pages/login_folder/loginpage.dart';
 
@@ -49,6 +51,24 @@ class SharedService {
   ) async {
     APICacheDBModel cacheDBModel = APICacheDBModel(
         key: "user_details", syncData: jsonEncode(model.toJson()));
+
+    await APICacheManager().addCacheData(cacheDBModel);
+  }
+
+  static Future<void> transactionDetails(
+    TransactionModel model,
+  ) async {
+    APICacheDBModel cacheDBModel = APICacheDBModel(
+        key: "transaction_details", syncData: jsonEncode(model.toJson()));
+
+    await APICacheManager().addCacheData(cacheDBModel);
+  }
+
+  static Future<void> addTransactionDetails(
+    AddTransactionResponseModel model,
+  ) async {
+    APICacheDBModel cacheDBModel = APICacheDBModel(
+        key: "login_details", syncData: jsonEncode(model.toJson()));
 
     await APICacheManager().addCacheData(cacheDBModel);
   }

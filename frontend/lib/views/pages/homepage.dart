@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/Homepage_folder/payment_folder/pay.dart';
 import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
 import 'package:frontend/views/widgets/bottom_nav_bar.dart';
 import 'package:frontend/views/widgets/search_bar.dart';
+import 'package:get/get.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -154,11 +156,19 @@ class _HomepageState extends State<Homepage> {
                             image: "images/liability.png",
                             press: () {},
                           ),
-                          SeassionCard(
-                            seassionNum: 3,
-                            text: "Pay",
-                            image: "images/money.png",
-                            press: () {},
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) => Pay()));
+                            },
+                            child: SeassionCard(
+                              seassionNum: 3,
+                              text: "Pay",
+                              image: "images/money.png",
+                              press: () {
+                                Pay();
+                              },
+                            ),
                           ),
                           SeassionCard(
                             seassionNum: 4,
