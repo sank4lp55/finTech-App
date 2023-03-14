@@ -101,7 +101,7 @@ class _Add_ScreenState extends State<Add_Screen> {
         Get.delete();
         AddTransactionController _addTransactionController = Get.put(
             AddTransactionController(selctedItemi!, refNo_c.text, amount_c.text,
-                "complete", description_C.text, selctedItem!, 5));
+                "complete", " ", description_C.text, selctedItem!));
         // var add = Add_data(selctedItemi!, amount_c.text, date,
         //     description_C.text, selctedItem!);
         // box.add(add);

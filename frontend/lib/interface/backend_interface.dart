@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/shared_service.dart';
@@ -102,18 +103,26 @@ class BackendInterface {
   }
 
   static Future<AddTransactionResponseModel> addTransaction(
-      AddTransactionRequestModel model) async {
+      AddTransactionRequestModel model, String token) async {
     // await Future.delayed(const Duration(seconds: 3));
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'Authorization': '$token',
+      //HttpHeaders.authorizationHeader: '$token',
     };
+    final encoding = Encoding.getByName('utf-8');
 
     var url = Uri.parse('https://fintech-app.up.railway.app/api/v1/trxn');
 
     var response = await client.post(
       url,
-      headers: requestHeaders,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': '$token',
+      },
       body: jsonEncode(model.toJson()),
+      encoding: encoding,
     );
     http.Response addTransactionResponseModel = response;
 

@@ -30,10 +30,9 @@ class Data {
   String? refNo;
   String? amount;
   String? status;
+  String? date;
   String? description;
   String? category;
-  int? transactionSender;
-  int? transactionReceiver;
   String? updatedAt;
   String? createdAt;
 
@@ -43,10 +42,9 @@ class Data {
       this.refNo,
       this.amount,
       this.status,
+      this.date,
       this.description,
       this.category,
-      this.transactionSender,
-      this.transactionReceiver,
       this.updatedAt,
       this.createdAt});
 
@@ -56,10 +54,9 @@ class Data {
     refNo = json['refNo'];
     amount = json['amount'];
     status = json['status'];
+    date = json['date'];
     description = json['description'];
     category = json['category'];
-    transactionSender = json['transaction_sender'];
-    transactionReceiver = json['transaction_receiver'];
     updatedAt = json['updatedAt'];
     createdAt = json['createdAt'];
   }
@@ -71,10 +68,9 @@ class Data {
     data['refNo'] = this.refNo;
     data['amount'] = this.amount;
     data['status'] = this.status;
+    data['date'] = this.date;
     data['description'] = this.description;
     data['category'] = this.category;
-    data['transaction_sender'] = this.transactionSender;
-    data['transaction_receiver'] = this.transactionReceiver;
     data['updatedAt'] = this.updatedAt;
     data['createdAt'] = this.createdAt;
     return data;

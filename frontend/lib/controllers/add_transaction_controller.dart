@@ -12,12 +12,12 @@ class AddTransactionController extends GetxController {
   String refNo;
   String amount;
   String status;
+  String date;
   String description;
   String category;
-  int transactionSender;
 
   AddTransactionController(this.type, this.refNo, this.amount, this.status,
-      this.description, this.category, this.transactionSender);
+      this.date, this.description, this.category);
 
   var isLoading = false.obs;
 
@@ -39,16 +39,16 @@ class AddTransactionController extends GetxController {
       String? principle = await storage.read(key: "uid");
       String? token = await storage.read(key: "token");
       AddTransactionRequestModel model = AddTransactionRequestModel(
-          type: type,
-          refNo: refNo,
-          amount: amount,
-          status: status,
-          description: description,
-          category: category,
-          token: token,
-          transactionSender: transactionSender);
+        type: type,
+        refNo: refNo,
+        amount: amount,
+        status: status,
+        date: date,
+        description: description,
+        category: category,
+      );
       AddTransactionResponseModel modelTemp =
-          await BackendInterface.addTransaction(model);
+          await BackendInterface.addTransaction(model, token.toString());
     } finally {
       isLoading(false);
     }
