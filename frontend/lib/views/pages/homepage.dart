@@ -456,8 +456,7 @@ class SeassionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(13),
         child: Container(
           width: width * 0.25,
-          height: width *
-              0.25, // constraint.maxWidth provide us the available with for this widget
+          height: width * 0.25, // constraint.maxWidth provide us the available with for this widget
           // padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade400),
@@ -477,7 +476,7 @@ class SeassionCard extends StatelessWidget {
             child: InkWell(
               // onTap: press,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Column(
                   children: [
                     Row(
@@ -502,7 +501,11 @@ class SeassionCard extends StatelessWidget {
                     SizedBox(
                       height: 7,
                     ),
-                    Text("$text"),
+                    Text("$text",
+                    // style: TextStyle(
+                    //   overflow: TextOverflow.clip,
+                    // ),
+                    ),
                   ],
                 ),
               ),
