@@ -25,7 +25,7 @@ const getAllTransactionsData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Found"
         });
     }
 
@@ -65,7 +65,7 @@ const getTransactionByID = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Found"
         });
     }
 }
@@ -82,12 +82,12 @@ const getTransactionByID = async (req, res, next) => {
     */
 const save = async (req, res, next) => {
     let transaction = req.body;
-    console.log(transaction);
-    if (transaction.type == "send") {
-        transaction.transaction_sender = req.userInfo.id
-    } else if (transaction.type == "recieve") {
-        transaction.transaction_receiver = req.userInfo.id
-    }
+    console.log(transaction)
+     if (transaction.type == "send") {
+         transaction.transaction_sender = req.userInfo.id
+     } else if (transaction.type == "recieve") {
+         transaction.transaction_receiver = req.userInfo.id
+     }
     try {
         console.log("transaction add")
         const resp = await addTransaction(transaction)
@@ -98,7 +98,7 @@ const save = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Added"
         });
     }
 }
@@ -124,7 +124,7 @@ const updateTransactionData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Updated"
         });
     }
 }
@@ -149,7 +149,7 @@ const deleteTransactionData = async (req, res, next) => {
     } catch (error) {
         return res.status(404).send({
             success: false,
-            message: error
+            message: "Transaction Not Deleted"
         });
     }
 }
