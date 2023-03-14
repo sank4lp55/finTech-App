@@ -141,6 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                               key: "token", value: Response.token);
                           await storage.write(
                               key: "uid", value: Response.user!.uid);
+                          await storage.write(
+                              key: "id", value: Response.user!.id.toString());
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

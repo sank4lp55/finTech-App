@@ -37,28 +37,28 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        transaction_sender: {
-            type: DataTypes.SMALLINT,
-            allowNull: false,
-        },
-        transaction_receiver: {
-            type: DataTypes.SMALLINT,
-            allowNull: false,
-        },
+        // transaction_sender: {
+        //     type: DataTypes.SMALLINT,
+        //     allowNull: false,
+        // },
+        // transaction_receiver: {
+        //     type: DataTypes.SMALLINT,
+        //     allowNull: false,
+        // },
 
     }, {});
-    transaction.associate = function (models) {
-        // associations can be defined here
-        transaction.belongsTo(models.user, {
-            foreignKey: 'transaction_sender',
-            as: 'sender',
-            onDelete: 'CASCADE'
-        });
-        transaction.belongsTo(models.user, {
-            foreignKey: 'transaction_receiver',
-            as: 'receiver',
-            onDelete: 'CASCADE',
-        });
-    };
+    // transaction.associate = function (models) {
+    //     // associations can be defined here
+    //     transaction.belongsTo(models.user, {
+    //         foreignKey: 'transaction_sender',
+    //         as: 'sender',
+    //         onDelete: 'CASCADE'
+    //     });
+    //     transaction.belongsTo(models.user, {
+    //         foreignKey: 'transaction_receiver',
+    //         as: 'receiver',
+    //         onDelete: 'CASCADE',
+    //     });
+    // };
     return transaction;
 };

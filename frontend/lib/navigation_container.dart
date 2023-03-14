@@ -11,6 +11,8 @@ import 'package:frontend/views/pages/onboarding_folder/details.dart';
 
 import 'package:frontend/views/pages/profile_folder/profile.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
+import 'package:frontend/views/pages/splash_screen.dart';
+import 'package:get/get.dart';
 
 class NavigationContainer extends StatefulWidget {
   const NavigationContainer({super.key});
@@ -56,6 +58,10 @@ class _NavigationContainerState extends State<NavigationContainer> {
             onTap: () {
               setState(
                 () {
+                  if (index != currentIndex) {
+                    Get.deleteAll(); //Removes Controller every time we navigate to keep the data in controller up to date with backend .
+                  }
+
                   currentIndex = index;
                 },
               );
