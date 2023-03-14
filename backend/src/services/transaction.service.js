@@ -11,11 +11,7 @@ const getTransactionInfoByID = async (id) => {
     let res = await transaction.findOne({
         where: {
             'id': id
-        },
-        include: [{
-            model: user,
-            as: 'user'
-        }]
+        }
     })
     return res
 };
@@ -28,11 +24,7 @@ const getAllTransactions = async (user_id) => {
     let res = await transaction.findAll({
         where: {
             'user_id': user_id
-        },
-        include: [{
-            model: user,
-            as: 'user'
-        }]
+        }
     })
     return res
 }
