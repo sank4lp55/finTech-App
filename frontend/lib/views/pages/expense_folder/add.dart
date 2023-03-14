@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/add_transaction_controller.dart';
 import 'package:frontend/data/model/hive_models/add_date.dart';
+import 'package:frontend/navigation_container.dart';
+import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Add_Screen extends StatefulWidget {
@@ -14,25 +18,27 @@ class _Add_ScreenState extends State<Add_Screen> {
   DateTime date = new DateTime.now();
   String? selctedItem;
   String? selctedItemi;
-  final TextEditingController expalin_C = TextEditingController();
-  FocusNode ex = FocusNode();
+  final TextEditingController description_C = TextEditingController();
+  FocusNode dis = FocusNode();
   final TextEditingController amount_c = TextEditingController();
+  final TextEditingController refNo_c = TextEditingController();
   FocusNode amount_ = FocusNode();
+  FocusNode refNo_ = FocusNode();
   final List<String> _item = [
-    'food',
+    'Food',
     "Transfer",
     "Transportation",
     "Education"
   ];
   final List<String> _itemei = [
-    'Income',
-    "Expense",
+    'recieve',
+    "send",
   ];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    ex.addListener(() {
+    dis.addListener(() {
       setState(() {});
     });
     amount_.addListener(() {
@@ -58,30 +64,35 @@ class _Add_ScreenState extends State<Add_Screen> {
     );
   }
 
-  Container main_container() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-      ),
-      height: 550,
-      width: 340,
-      child: Column(
-        children: [
-          SizedBox(height: 50),
-          name(),
-          SizedBox(height: 30),
-          explain(),
-          SizedBox(height: 30),
-          amount(),
-          SizedBox(height: 30),
-          How(),
-          SizedBox(height: 30),
-          date_time(),
-          Spacer(),
-          save(),
-          SizedBox(height: 25),
-        ],
+  main_container() {
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+        ),
+        height: 700,
+        width: 340,
+        child: Column(
+          children: [
+            SizedBox(height: 50),
+            name(),
+            SizedBox(height: 30),
+            description(),
+            SizedBox(height: 30),
+            amount(),
+            SizedBox(height: 30),
+            refNo(),
+            SizedBox(height: 30),
+            How(),
+            SizedBox(height: 30),
+            date_time(),
+            SizedBox(height: 30),
+            //Spacer(),
+            save(),
+            SizedBox(height: 25),
+          ],
+        ),
       ),
     );
   }
@@ -89,10 +100,22 @@ class _Add_ScreenState extends State<Add_Screen> {
   GestureDetector save() {
     return GestureDetector(
       onTap: () {
-        var add = Add_data(
-            selctedItemi!, amount_c.text, date, expalin_C.text, selctedItem!);
-        box.add(add);
-        Navigator.of(context).pop();
+        Get.delete();
+        AddTransactionController _addTransactionController = Get.put(
+            AddTransactionController(selctedItemi!, refNo_c.text, amount_c.text,
+                "complete", "01/04/2022", description_C.text, selctedItem!));
+        // var add = Add_data(selctedItemi!, amount_c.text, date,
+        //     description_C.text, selctedItem!);
+        // box.add(add);
+        Get.snackbar("Succes", "Transaction added :)",
+            icon: const Icon(Icons.check_box),
+            barBlur: 20,
+            isDismissible: true,
+            duration: const Duration(seconds: 5),
+            colorText: Colors.white);
+        Get.delete();
+        Get.offAll(NavigationContainer());
+        //Navigator.of(context).pop();
       },
       child: Container(
         alignment: Alignment.center,
@@ -189,7 +212,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           hint: Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              'How',
+              'type',
               style: TextStyle(color: Colors.grey),
             ),
           ),
@@ -223,15 +246,37 @@ class _Add_ScreenState extends State<Add_Screen> {
     );
   }
 
-  Padding explain() {
+  Padding refNo() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        focusNode: ex,
-        controller: expalin_C,
+        //keyboardType: TextInputType.number,
+        focusNode: refNo_,
+        controller: refNo_c,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          labelText: 'explain',
+          labelText: 'reference no.',
+          labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade500),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xffC5C5C5))),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2, color: Color(0xff2B3467))),
+        ),
+      ),
+    );
+  }
+
+  Padding description() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        focusNode: dis,
+        controller: description_C,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          labelText: 'description',
           labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade500),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -300,7 +345,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           hint: Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              'Name',
+              'category',
               style: TextStyle(color: Colors.grey),
             ),
           ),
@@ -336,7 +381,9 @@ class _Add_ScreenState extends State<Add_Screen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        // Get.delete();
+                        // Get.offAll(ExpenseManager());
+                        //Navigator.of(context).pop();
                       },
                       child: Icon(Icons.arrow_back, color: Colors.white),
                     ),
