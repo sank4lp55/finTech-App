@@ -1,12 +1,14 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/interface/backend_interface.dart';
+import 'package:frontend/models/links_model.dart';
+import 'package:frontend/models/transaction_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
   var id = 0.obs;
   var uid = "".obs;
-  var fullname = "sankalpppp".obs;
+  var fullname = "".obs;
   var email = "".obs;
   var mobile = "".obs;
   var country = "".obs;
@@ -16,7 +18,7 @@ class UserController extends GetxController {
   var streetAddress = "".obs;
   var bio = "".obs;
   var image = "".obs;
-  var links = [];
+  Links? links;
   var accountStatus = 0.obs;
   var userType = 0.obs;
   var createdAt = "".obs;
@@ -28,31 +30,15 @@ class UserController extends GetxController {
   var facebook = "".obs;
   var website = "".obs;
 
-  var isLoading = true.obs;
+  var isLoading = false.obs;
 
   final storage = FlutterSecureStorage();
 
-  // @override
-  // Future<void> initState() async {
-  //   String? principle = await storage.read(key: "uid");
-  //   String? token = await storage.read(key: "token");
-  //   getUserData(principle!, token!);
-  //   super.onInit();
-  // }
-
-  // }
-
-  // final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
-  // Map<String, dynamic> get user => _user.value;
-
-  // Rx<String> _uid = "".obs;
-
-  // updateUserId(String uid) {
-  //   _uid.value = uid;
-  //   getUserData();
-  // }
-  // String principal =
-  //     "zxg6n-qanyj-g6fvl-5ysfr-pdpi4-p6pk5-mf3uy-dkq27-y3upv-o6ov6-dae";
+  @override
+  void onInit() async {
+    super.onInit();
+    getUserData();
+  }
 
   Future<void> getUserData() async {
     try {
@@ -73,7 +59,7 @@ class UserController extends GetxController {
       streetAddress.value = userModel.data!.streetAddress!.toString();
       bio.value = userModel.data!.bio!.toString();
       image.value = userModel.data!.image!.toString();
-      links = userModel.data!.links as List;
+      links = userModel.data!.links;
       accountStatus.value = userModel.data!.accountStatus!.toInt();
       userType.value = userModel.data!.userType!.toInt();
       createdAt.value = userModel.data!.createdAt!.toString();

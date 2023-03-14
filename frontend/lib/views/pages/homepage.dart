@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/Homepage_folder/payment_folder/pay.dart';
 import 'package:frontend/views/pages/expense_folder/expense_manager.dart';
 import 'package:frontend/views/widgets/bottom_nav_bar.dart';
 import 'package:frontend/views/widgets/search_bar.dart';
+import 'package:get/get.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -154,11 +156,19 @@ class _HomepageState extends State<Homepage> {
                             image: "images/liability.png",
                             press: () {},
                           ),
-                          SeassionCard(
-                            seassionNum: 3,
-                            text: "Pay",
-                            image: "images/money.png",
-                            press: () {},
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) => Pay()));
+                            },
+                            child: SeassionCard(
+                              seassionNum: 3,
+                              text: "Pay",
+                              image: "images/money.png",
+                              press: () {
+                                Pay();
+                              },
+                            ),
                           ),
                           SeassionCard(
                             seassionNum: 4,
@@ -446,8 +456,7 @@ class SeassionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(13),
         child: Container(
           width: width * 0.25,
-          height: width *
-              0.25, // constraint.maxWidth provide us the available with for this widget
+          height: width * 0.25, // constraint.maxWidth provide us the available with for this widget
           // padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade400),
@@ -467,7 +476,7 @@ class SeassionCard extends StatelessWidget {
             child: InkWell(
               // onTap: press,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Column(
                   children: [
                     Row(
@@ -492,7 +501,11 @@ class SeassionCard extends StatelessWidget {
                     SizedBox(
                       height: 7,
                     ),
-                    Text("$text"),
+                    Text("$text",
+                    // style: TextStyle(
+                    //   overflow: TextOverflow.clip,
+                    // ),
+                    ),
                   ],
                 ),
               ),

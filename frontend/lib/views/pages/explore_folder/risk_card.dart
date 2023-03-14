@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:frontend/views/pages/explore_folder/results.dart';
 import 'package:get/get.dart';
 
 class Risk_card extends StatefulWidget {
@@ -11,13 +12,13 @@ class Risk_card extends StatefulWidget {
 }
 
 class _Risk_cardState extends State<Risk_card> {
-  final textcontroller = TextEditingController();
+  final amount = TextEditingController();
   double risk_val = 10;
   int selected_duration_ind = 0;
 
   @override
   void dispose() {
-    textcontroller.dispose();
+    amount.dispose();
     super.dispose();
   }
 
@@ -32,28 +33,29 @@ class _Risk_cardState extends State<Risk_card> {
         color: Color(0xDDFFFFFF),
         child: Container(
           width: width * 0.95,
-          height: height *0.55,
+          height: height * 0.55,
           padding: EdgeInsets.all(width * 0.05),
-          
           decoration: BoxDecoration(
-              // color: Colors.white30, 
-              borderRadius: BorderRadius.circular(7)
-            ),
+              // color: Colors.white30,
+              borderRadius: BorderRadius.circular(7)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Explore',
                 style: TextStyle(
-                      fontSize: width * 0.07,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  fontSize: width * 0.07,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              SizedBox(height: width*0.03,),
+              SizedBox(
+                height: width * 0.03,
+              ),
               Row(
                 children: [
-                  
-                  SizedBox(height: width*0.2,),
+                  SizedBox(
+                    height: width * 0.2,
+                  ),
                   Text(
                     'Amount',
                     style: TextStyle(
@@ -64,10 +66,8 @@ class _Risk_cardState extends State<Risk_card> {
                   Spacer(),
                   Container(
                     width: width * 0.5,
-                    
                     child: TextField(
-                      
-                      controller: textcontroller,
+                      controller: amount,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(0),
@@ -124,25 +124,31 @@ class _Risk_cardState extends State<Risk_card> {
                   Spacer(),
                   Row(
                     children: [
-                      customradio("<5 yr",0),
-                      SizedBox(width: width*0.02,),
+                      customradio("<5 yr", 0),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
                       customradio("5-15 yr", 1),
-                      SizedBox(width: width*0.02,),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
                       customradio(">15 yr", 2),
                     ],
                   )
                 ],
               ),
-              SizedBox(height: width*0.05,),
+              SizedBox(
+                height: width * 0.05,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   child: Text(
                     'Add Filters',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: width*0.045,
+                      fontSize: width * 0.045,
                       color: Colors.blue,
                       decoration: TextDecoration.underline,
                       decorationThickness: 1.5,
@@ -150,24 +156,31 @@ class _Risk_cardState extends State<Risk_card> {
                   ),
                 ),
               ),
-              SizedBox(height: width*0.06,),
+              SizedBox(
+                height: width * 0.06,
+              ),
               OutlinedButton(
-                onPressed: (){},
-                style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(10),
-                  backgroundColor: MaterialStateProperty.all(Color(0xff2B3460)),
-                  // shape: ,
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: width*0.07,vertical: width*0.03))
-                ), 
-                child: Text(
-                  'Show Results',
-                  style: TextStyle(
-                    fontSize: width*0.05,
-                    color: Colors.white
-                  ),
-                  
-                )
-              )
+                  onPressed: () {
+                    Get.to(
+                      Results(
+                        amount: amount.text,
+                        risk_factor: risk_val,
+                        duration: selected_duration_ind,
+                      )
+                    );
+                  },
+                  style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(10),
+                      backgroundColor:
+                          MaterialStateProperty.all(Color(0xff2B3460)),
+                      // shape: ,
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                          horizontal: width * 0.07, vertical: width * 0.03))),
+                  child: Text(
+                    'Show Results',
+                    style:
+                        TextStyle(fontSize: width * 0.05, color: Colors.white),
+                  ))
             ],
           ),
         ),
@@ -193,16 +206,18 @@ class _Risk_cardState extends State<Risk_card> {
       },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-        side: MaterialStateProperty.all(
-          BorderSide(color: selected_duration_ind==index?Colors.blue : Colors.black)),
-        backgroundColor: selected_duration_ind==index? MaterialStateProperty.all<Color>(Colors.yellow.shade200) : MaterialStateProperty.all<Color>(Colors.grey.shade300),
+        side: MaterialStateProperty.all(BorderSide(
+            color:
+                selected_duration_ind == index ? Colors.blue : Colors.black)),
+        backgroundColor: selected_duration_ind == index
+            ? MaterialStateProperty.all<Color>(Colors.yellow.shade200)
+            : MaterialStateProperty.all<Color>(Colors.grey.shade300),
       ),
       child: Text(
         text,
         style: TextStyle(
-          color: selected_duration_ind==index?Colors.blue: Colors.black,
+          color: selected_duration_ind == index ? Colors.blue : Colors.black,
           fontWeight: FontWeight.w600,
         ),
-      )
-    );
+      ));
 }
