@@ -13,7 +13,7 @@ const validateUser = async (req, res, next) => {
 
     // Verify Token
     auth.verifyIdToken(token).then(decodedToken => {
-        console.log('Token is correct'.blue)
+        console.log('Token is correct')
         console.log('Auth Middleware Calling--->')
 
         // to verify the user
@@ -32,7 +32,7 @@ const validateUser = async (req, res, next) => {
                 } else {
                     // Adding New Propert UserInfo in the req Obj 
                     // We can use this UserInfo Object from any Controller 
-                    console.log("User Authenticated".yellow);
+                    console.log("User Authenticated");
                     req.userInfo = uData;
                     next()
                 }

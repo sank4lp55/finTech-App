@@ -108,7 +108,6 @@ const signUp = async (req, res, next) => {
 
             if (user.id) {
                 const userInfo = await getUserInfoByUID(FirebaseUserAuth.uid)
-                console.log("userInfo", userInfo)
                 return res.status(201).json({
                     success: true,
                     data: userInfo
