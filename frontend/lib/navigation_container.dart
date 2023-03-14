@@ -31,7 +31,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: (currentIndex == 0 || currentIndex == 1)
-          ? Colors.white
+          ? Colors.grey.shade300
           : Color(0xff2B3460),
       body: Screen[currentIndex],
       bottomNavigationBar: Container(

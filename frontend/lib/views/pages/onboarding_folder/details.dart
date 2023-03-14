@@ -53,7 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
                 // welcome back, you've been missed!
                 Text(
-                  'Welcome back you\'ve been missed!',
+                  'Let\'s get started',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: width * 0.04,
@@ -193,12 +193,14 @@ class _DetailsPageState extends State<DetailsPage> {
                         'Login',
                         style: TextStyle(
                           color: dark,
+                          decoration: TextDecoration.underline,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: width*0.04,)
               ],
             ),
           ),

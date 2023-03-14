@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/navigation_container.dart';
 import 'package:frontend/utils/constants.dart';
+import 'package:frontend/views/pages/onboarding_folder/aadhar.dart';
 import 'package:frontend/views/widgets/my_button.dart';
 import 'package:get/get.dart';
 
@@ -99,7 +100,7 @@ class _OtpState extends State<Otp> {
                       width: double.infinity,
                       child: MyButton(
                         onTap: () {
-                          Get.to(NavigationContainer());
+                          Get.to(verifyaadhar());
                         },
                         h: height * 0.065,
                         w: width * 0.2,
@@ -125,9 +126,9 @@ class _OtpState extends State<Otp> {
                 height: width * 0.04,
               ),
               Text(
-                "Resend New Code",
+                "Resend Code",
                 style: TextStyle(
-                    fontSize: width * 0.045,
+                    fontSize: width * 0.04,
                     fontWeight: FontWeight.bold,
                     color: dark),
                 textAlign: TextAlign.center,
