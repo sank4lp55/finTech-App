@@ -26,6 +26,7 @@ const getAllTransactions = async (user_id) => {
             'user_id': user_id
         }
     })
+
     return res
 }
 
@@ -74,16 +75,23 @@ const total_spent = async (user_id) => {
             'user_id': user_id
         }
     })
-    categories = []
-    res.forEach(el => {
-        categories.push(el.category)
-    });
+    // categories = []
+    // res.forEach(el => {
+    //     categories.push(el.category)
+    // });
 
-    let total = 0
+    var totalSend = 0
+    var totalRecieve = 0
     for (let i = 0; i < res.length; i++) {
-        total += Number(res[i].amount)
+        if (res[i].type == 'send') {
+            totalSend += Number(res[i].amount)
+        }
+        if (res[i].type == 'recieve') {
+            totalRecieve += Number(res[i].amount)
+        }
     }
-    return { total, categories }
+
+    return { totalSend, totalRecieve }
 }
 
 
