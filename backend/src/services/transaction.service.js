@@ -74,12 +74,16 @@ const total_spent = async (user_id) => {
             'user_id': user_id
         }
     })
+    categories = []
+    res.forEach(el => {
+        categories.push(el.category)
+    });
 
     let total = 0
     for (let i = 0; i < res.length; i++) {
         total += Number(res[i].amount)
     }
-    return total
+    return { total, categories }
 }
 
 
