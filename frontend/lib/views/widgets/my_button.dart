@@ -8,13 +8,18 @@ class MyButton extends StatelessWidget {
   final String text;
   final double h;
   final double w;
+  final bgcolor;
+  final textcolor;
 
   const MyButton(
       {super.key,
       required this.onTap,
       this.text = "",
       required this.h,
-      required this.w});
+      required this.w,
+      this.bgcolor=dark,
+      this.textcolor=Colors.white
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +35,14 @@ class MyButton extends StatelessWidget {
         //padding: const EdgeInsets.all(20),
         //margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: dark,
+          color: bgcolor,
           borderRadius: BorderRadius.circular(height * 0.01),
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
-              color: Colors.white,
+              color: textcolor,
               fontWeight: FontWeight.bold,
               fontSize: height * 0.02,
             ),

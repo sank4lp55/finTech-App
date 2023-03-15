@@ -5,6 +5,7 @@ import 'package:frontend/navigation_container.dart';
 import 'package:frontend/views/pages/explore_folder/explore.dart';
 import 'package:frontend/views/pages/homepage.dart';
 import 'package:frontend/views/pages/login_folder/loginpage.dart';
+import 'package:frontend/views/pages/onboarding_folder/aadhar.dart';
 import 'package:frontend/views/pages/onboarding_folder/details.dart';
 import 'package:frontend/views/pages/onboarding_folder/welcome.dart';
 import 'package:frontend/views/pages/splash_screen.dart';

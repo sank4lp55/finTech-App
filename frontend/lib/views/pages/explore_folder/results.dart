@@ -11,13 +11,13 @@ class Results extends StatefulWidget {
     [
       'images/Mrf-logo.png',
       'MRF Ltd.',
-      '₹1500.00',
+      '₹1,500.00',
       'https://groww.in/stocks/mrf-ltd'
     ],
     [
       'images/apollo-logo.png',
       'Apollo Hospitals',
-      '₹4300.00',
+      '₹4,300.00',
       'https://groww.in/stocks/apollo-hospitals-enterprise-ltd'
     ],
     [
@@ -29,19 +29,19 @@ class Results extends StatefulWidget {
     [
       'images/itc-logo.png',
       'ITC Ltd.',
-      '384.00',
+      '₹384.00',
       'https://groww.in/stocks/itc-ltd'
     ],
     [
       'images/jsw-logo.png',
       'JSW Steel Ltd.',
-      '680.00',
+      '₹680.00',
       'https://groww.in/stocks/jsw-steel-ltd'
     ],
     [
       'images/tech-m-logo.png',
       'Tech Mahendra',
-      '₹1150.00',
+      '₹1,150.00',
       'https://groww.in/stocks/tech-mahindra-ltd'
     ],
   ];
@@ -50,56 +50,56 @@ class Results extends StatefulWidget {
     [
       'images/bitcoin-logo.png',
       'Bitcoin',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹21,02,500.66',
+      'https://coindcx.com/trade/BTCINR'
     ],
     [
       'images/ethereum-logo.png',
       'Ethereum',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹1,43,051.16',
+      'https://coindcx.com/trade/ETHINR'
     ],
     [
       'images/bnb-logo.png',
       'Binance Coin',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹26,998.99',
+      'https://coindcx.com/trade/BNBINR'
     ],
     [
       'images/gala-logo.png',
       'Gala',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹3.22',
+      'https://coindcx.com/trade/GALAINR'
     ],
     [
       'images/matic-logo.png',
       'Matic',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹102.777',
+      'https://coindcx.com/trade/MATICINR'
     ],
     [
       'images/shib-logo.png',
       'Shiba Inu',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹0.000955',
+      'https://coindcx.com/trade/SHIBINR'
     ],
     [
       'images/snx-logo.png',
       'SNX',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹264.94',
+      'https://coindcx.com/trade/SNXINR'
     ],
     [
       'images/trx-logo.png',
       'TRON/TRX',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹5.80',
+      'https://coindcx.com/trade/TRXINR'
     ],
     [
       'images/xrp-logo.png',
       'Ripple',
-      '₹16000.00',
-      'https://wazirx.com/exchange/ETH-INR'
+      '₹32.79',
+      'https://coindcx.com/trade/XRPINR'
     ],
   ];
 

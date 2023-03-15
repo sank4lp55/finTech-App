@@ -237,11 +237,13 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: dark,
                           fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
                   ],
-                )
+                ),
+                SizedBox(height: width*0.04 ,)
               ],
             ),
           ),

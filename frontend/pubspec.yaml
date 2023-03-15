@@ -48,6 +48,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   flutter_svg: ^1.1.6
   url_launcher: ^6.1.9
+  material_dialogs: ^1.1.4
   telephony: ^0.2.0
   vibration: ^1.7.6
   json_annotation: ^4.8.0
