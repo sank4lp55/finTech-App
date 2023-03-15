@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend/controllers/add_transaction_controller.dart';
 import 'package:frontend/controllers/transaction_controller.dart';
 import 'package:frontend/models/transaction_data_model.dart';
+import 'package:frontend/navigation_container.dart';
 import 'package:frontend/views/pages/expense_folder/add.dart';
 import 'package:frontend/views/pages/expense_folder/statistics.dart';
 import 'package:frontend/views/widgets/loading.dart';
@@ -59,6 +61,65 @@ class _ExpenseManagerState extends State<ExpenseManager> {
     setState(() {
       _message = message.body ?? "Error reading message body.";
       print(_message);
+      String s = _message;
+      String p = "";
+      String w = "";
+      String amt = "";
+      String type = "";
+      String refNo = "";
+      String status = "success";
+      String date = "01/02/2022";
+      String des = "xyz";
+      String cat = "UA";
+      int flag = 0;
+
+      int f = 0;
+      //to get amt .
+      for (int i = 0; i < s.length; i++) {
+        var ch = s[i];
+        if (ch != ' ') {
+          p = p + ch;
+        } else {
+          if (f == 2) {
+            f++;
+            flag = 1;
+            refNo = p;
+          } else if (p.length >= 2 && p[0] == 'R' && p[1] == 's') {
+            amt = p.substring(2);
+          } else if (p == 'if' || p == 'If') {
+            type = "send";
+          } else if (p == 'Ref' || p == 'ref') {
+            f++;
+          } else if (f == 1 && (p == 'no' || p == 'No')) {
+            f++;
+          }
+          p = "";
+        }
+      }
+      if (type == "" && flag == 1) {
+        type = "recieved";
+      }
+
+      if (type != "") {
+        AddTransactionController _addTransactionController = Get.put(
+            AddTransactionController(
+                type, refNo, amt, "complete", "15/03/2022", des, cat));
+
+        // var add = Add_data(selctedItemi!, amount_c.text, date,
+        //     description_C.text, selctedItem!);
+        // box.add(add);
+        Get.snackbar(
+          "Success",
+          "Transaction added :)",
+          colorText: Colors.black,
+          snackPosition: SnackPosition.BOTTOM,
+          icon: const Icon(Icons.check_box),
+          barBlur: 20,
+          isDismissible: true,
+          duration: const Duration(seconds: 5),
+        );
+        Get.off(NavigationContainer());
+      }
     });
   }
 
