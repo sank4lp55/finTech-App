@@ -372,7 +372,9 @@ class _UpiScreenState extends State<UpiDirectScreen> {
               ),
             ),
             MyButton(
-              onTap: () {},
+              onTap: () {
+                Get.to(PlateformDirect());
+              },
               h: width * 0.2,
               w: width * 0.4,
               text: "Proceed",
