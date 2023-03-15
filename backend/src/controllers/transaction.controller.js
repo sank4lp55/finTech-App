@@ -20,9 +20,13 @@ const getAllTransactionsData = async (req, res, next) => {
     try {
         let user_id = req.userInfo.id
         const resp = await getAllTransactions(user_id)
+        const total = await total_spent(user_id)
+
         return res.status(200).json({
             success: true,
-            data: resp
+            data: resp,
+            totalSend: total.totalSend,
+            totalRecieve: total.totalRecieve
         })
     } catch (error) {
         console.log(error)
